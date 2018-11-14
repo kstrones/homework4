@@ -39,7 +39,7 @@ def build_model():
     model = keras.Sequential([
         keras.layers.Dense(10, activation=tf.nn.relu,
                            input_shape=(train_data.shape[1],)),
-        keras.layers.Dense(1)
+        keras.layers.Dense(5)
     ])
 
     optimizer = tf.train.RMSPropOptimizer(0.001)
@@ -62,8 +62,8 @@ EPOCHS = 500
 
 #Store the training history
 tf.placeholder
-history = model.fit(train_data, train_indecies, epochs=EPOCHS, validation_split=0.2, verbose=0, callbacks=[PrintDot()])
+history = model.fit(train_data, test_data, epochs=EPOCHS, validation_split=0.2, verbose=0, callbacks=[PrintDot()])
 
-[loss, mae] = model.evaluate(test_data, test_indicies, verbose=0)
+[loss, mae] = model.evaluate(train_data, test_data, verbose=0)
 
 print("Testing set Mean Abs Error: ${:7.2f}".format(mae * 1000))
