@@ -39,12 +39,18 @@ def build_model():
     model = keras.Sequential([
         keras.layers.Dense(10, activation=tf.nn.relu,
                            input_shape=(train_data.shape[1],)),
-        keras.layers.Dense(5)
+        #keras.layers.Dense(100, activation=tf.nn.relu),
+        #keras.layers.Dense(50, activation=tf.nn.relu),
+        #keras.layers.Dense(10, activation=tf.nn.relu),
+        #keras.layers.Dense(10, activation=tf.nn.relu),
+        #keras.layers.Dense(10, activation=tf.nn.relu),
+        keras.layers.Dense(10, activation=tf.nn.relu),
+        keras.layers.Dense(4)
     ])
 
-    optimizer = tf.train.RMSPropOptimizer(0.001)
+    optimizer = tf.train.RMSPropOptimizer(0.005)
 
-    model.compile(loss='mse',
+    model.compile(loss='mean_absolute_error',
                   optimizer=optimizer,
                   metrics=['mae'])
     return model
@@ -58,12 +64,11 @@ class PrintDot(keras.callbacks.Callback):
     if epoch % 100 == 0: print('')
     print('.', end='')
 
-EPOCHS = 500
+EPOCHS = 200
 
 #Store the training history
 tf.placeholder
-history = model.fit(train_data, test_data, epochs=EPOCHS, validation_split=0.2, verbose=0, callbacks=[PrintDot()])
+history = model.fit(train_data, test_data, epochs=EPOCHS, batch_size=50, validation_split=0.1, verbose=2, callbacks=[PrintDot()])
 
 [loss, mae] = model.evaluate(train_data, test_data, verbose=0)
-
-print("Testing set Mean Abs Error: ${:7.2f}".format(mae * 1000))
+print (loss)
