@@ -37,14 +37,14 @@ print(train_data[0])  # Display sample features, notice the different scales
 #Build the model
 def build_model():
     model = keras.Sequential([
-        keras.layers.Dense(10, activation=tf.nn.relu,
+        keras.layers.Dense(20, activation=tf.nn.relu,
                            input_shape=(train_data.shape[1],)),
         #keras.layers.Dense(100, activation=tf.nn.relu),
         #keras.layers.Dense(50, activation=tf.nn.relu),
         #keras.layers.Dense(10, activation=tf.nn.relu),
         #keras.layers.Dense(10, activation=tf.nn.relu),
-        #keras.layers.Dense(10, activation=tf.nn.relu),
-        keras.layers.Dense(10, activation=tf.nn.relu),
+        keras.layers.Dense(40, activation=tf.nn.relu),
+        keras.layers.Dense(40, activation=tf.nn.relu),
         keras.layers.Dense(4)
     ])
 
@@ -68,7 +68,7 @@ EPOCHS = 200
 
 #Store the training history
 tf.placeholder
-history = model.fit(train_data, test_data, epochs=EPOCHS, batch_size=50, validation_split=0.1, verbose=2, callbacks=[PrintDot()])
+history = model.fit(train_data, test_data, epochs=EPOCHS, batch_size=60, validation_split=0.005, verbose=2, callbacks=[PrintDot()])
 
 [loss, mae] = model.evaluate(train_data, test_data, verbose=0)
-print (loss)
+print (mae)
